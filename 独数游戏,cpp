@@ -1,0 +1,72 @@
+//we have defined the necessary header files here for this problem.
+//If additional header files are needed in your program, please import here.
+#include<iostream>
+#define row 9
+#define col 9
+
+int arr[row][col] = {0};
+
+int CheckRow(int r, int num)
+{
+    for(int j = 0;j < col;j++)
+    {
+        if(arr[r][j] == num)
+            return 0;
+    }
+    return 1;
+}
+
+int CheckCol(int c, int num)
+{
+    for(int i =0; i<9; i++)
+        if(arr[i][c] == num)
+            return 0;
+    return 1;
+}
+
+int main(){
+    
+    for(int i = 0;i < row;i++)
+        for(int j = 0;j <col;j++)
+        {
+            cin>>arr[i][j];
+        }
+    for(int ROW = 0;ROW < 3;ROW++)
+    {
+        for(int COL =0; COL<3;COL++)
+        {
+            for(int i=ROW*3;i<ROW*3+3;i++)
+                for(int j=COL*3;j<COL*3+3;j++)
+                {
+                    if(arr[i][j]!=0)
+                        continue;
+                    for(int num=1;num<=9;num++)
+                    {
+                        if(CheckRow(i,num)&&CheckCol(j,num))
+                        {
+                            for (int sub_i= ROW*3;sub_i<ROW*3+3;sub_i++)
+                                for(int sub_j=COL*3;sub_j<COL*3+3;sub_j++)
+                                    if(arr[sub_i][sub_j] == num)
+                                        goto loop_next;
+                        }
+                        arr[i][j]=num;
+                        loop_next:continue;
+                    }
+                }
+        }
+    }
+ 
+ //please define the C++ input here. For example: int a,b; cin>>a>>b;;
+
+ //please finish the function body here.
+
+ //please define the C++ output here. For example:cout<<____<<endl;
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+            cout<<arr[i][j];
+        cout<<endl;
+    }
+ 
+ return 0;
+}
